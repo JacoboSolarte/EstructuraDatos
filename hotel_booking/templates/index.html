@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Booking</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 15px 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header-title {
+            color: #fff; /* Color blanco para el título */
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+
+        h1, h2 {
+            color: #ff5722;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .room-info {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        input[type="text"], input[type="date"], select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .links {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="header-title">Hotel Booking System</h1>
+    </header>
+    <div class="container">
+        <h2>Available Rooms</h2>
+        <ul>
+            {% for room in rooms %}
+                <li>
+                    <div class="room-info">
+                        Room {{ room.room_number }} - {{ room.room_type }} - {{ room.status }}
+                    </div>
+                    {% if room.status == 'Available' %}
+                        <form action="/reserve/{{ room.room_number }}" method="POST">
+                            <label for="hotel">Select Hotel:</label>
+                            <select name="hotel" id="hotel" required>
+                                <option value="Hotel A">Hotel A</option>
+                                <option value="Hotel B">Hotel B</option>
+                                <option value="Hotel C">Hotel C</option>
+                            </select>
+
+                            <label for="identification">Identification:</label>
+                            <input type="text" name="identification" id="identification" placeholder="Enter your ID" required>
+
+                            <label for="customer_name">Name:</label>
+                            <input type="text" name="customer_name" id="customer_name" placeholder="Enter your name" required>
+
+                            <label for="phone">Phone:</label>
+                            <input type="text" name="phone" id="phone" placeholder="Enter your phone number" required>
+
+                            <label for="reservation_date">Reservation Date:</label>
+                            <input type="date" name="reservation_date" id="reservation_date" required>
+
+                            <label for="time">Select Time Slot:</label>
+                            <select name="time" id="time" required>
+                                <option value="08:00 - 12:00">08:00 - 12:00</option>
+                                <option value="12:00 - 16:00">12:00 - 16:00</option>
+                                <option value="16:00 - 20:00">16:00 - 20:00</option>
+                                <option value="20:00 - 00:00">20:00 - 00:00</option>
+                            </select>
+
+                            <button type="submit">Reserve</button>
+                        </form>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="links">
+            <h3><a href="/reservations">View Reservations</a></h3>
+            <h3><a href="/undo">Undo Last Reservation</a></h3>
+        </div>
+    </div>
+</body>
+</html>

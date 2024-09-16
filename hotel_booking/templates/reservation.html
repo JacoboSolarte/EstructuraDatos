@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservations</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 15px 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header-title {
+            color: #fff; /* Color blanco para el título */
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+
+        h1 {
+            color: #ff5722;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .reservation-info {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .links {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="header-title">Reservation List</h1>
+    </header>
+    <div class="container">
+        <h2>Reservations</h2>
+        <ul>
+            {% if reservations %}
+                {% for reservation in reservations %}
+                    <li>
+                        <div class="reservation-info">
+                            <strong>Hotel:</strong> {{ reservation.hotel }}<br>
+                            <strong>Room Number:</strong> {{ reservation.room.room_number }}<br>
+                            <strong>Room Type:</strong> {{ reservation.room.room_type }}<br>
+                            <strong>Customer Name:</strong> {{ reservation.customer_name }}<br>
+                            <strong>Identification:</strong> {{ reservation.identification }}<br>
+                            <strong>Phone:</strong> {{ reservation.phone }}<br>
+                            <strong>Reservation Date:</strong> {{ reservation.reservation_date }}<br>
+                            <strong>Time Slot:</strong> {{ reservation.time_slot }}
+                        </div>
+                    </li>
+                {% endfor %}
+            {% else %}
+                <p>No reservations found.</p>
+            {% endif %}
+        </ul>
+        <div class="links">
+            <h3><a href="/">Back to Room List</a></h3>
+        </div>
+    </div>
+</body>
+</html>
